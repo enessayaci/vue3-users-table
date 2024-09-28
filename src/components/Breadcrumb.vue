@@ -2,7 +2,7 @@
   <nav class="flex items-center" aria-label="Breadcrumb">
     <ol class="flex space-x-2">
       <li class="flex items-center">
-        <Button to="/" variant="naked"
+        <Button to="/" variant="naked" tabindex="-1"
           class="flex items-center dark:text-neutral-300 hover:text-blue-400 hover:bg-transparent">
           <IconHome />
         </Button>

@@ -1,9 +1,3 @@
-<template>
-  <component v-ripple :is="to ? 'router-link' : 'button'" v-bind="attrs" :to="to" :class="combinedClasses">
-    <slot />
-  </component>
-</template>
-
 <script setup lang="ts">
 import { defineProps, useAttrs, computed } from 'vue';
 import { cn } from '../../lib/utils';
@@ -68,3 +62,9 @@ export default {
   inheritAttrs: false,
 };
 </script>
+
+<template>
+  <component v-ripple :is="to ? 'router-link' : 'button'" v-bind="attrs" :to="to" :class="combinedClasses">
+    <slot />
+  </component>
+</template>
