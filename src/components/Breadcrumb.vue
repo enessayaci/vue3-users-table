@@ -11,18 +11,16 @@
       <li v-for="(item, index) in breadcrumbs" :key="index" class="flex items-center">
         <template v-if="index < breadcrumbs.length - 1">
           <template v-if="isRouteDefined(item.link)">
-            <router-link :to="item.link" class="text-sm hover:text-blue-400 hover:bg-transparent">
+            <router-link :to="item.link" class="text-sm hover:text-blue-400 hover:bg-transparent text-neutral">
               {{ item.text }}
             </router-link>
           </template>
           <template v-else>
-            <span class="font-medium text-sm">{{ item.text
-              }}</span>
+            <span class="font-medium text-sm text-neutral">{{ item.text }}</span>
           </template>
         </template>
         <template v-else>
-          <span class="font-medium text-sm">{{ item.text
-            }}</span>
+          <span class="font-medium text-sm">{{ item.text }}</span>
         </template>
         <span v-if="index < breadcrumbs.length - 1" class="ml-2 text-xs font-medium text-neutral-300">/</span>
       </li>

@@ -13,19 +13,21 @@ const props = defineProps<{
 // Dışarıdan gelen tüm attribute'ları almak için useAttrs kullanıyoruz
 const attrs = useAttrs();
 
+const defaultClasses = props.variant != 'naked' ? 'font-medium text-xs rounded transition-all px-2.5 py-2' : null
+
 // Buton stillerini tanımlama
-const variantClasses = computed(() => {
+const variantClasses = (() => {
   switch (props.variant) {
     case 'outline':
-      return 'text-primary ring-offset-0 ring-inset ring-1 ring-primary hover:bg-primary-100 bg-transparent font-medium text-xs rounded transition-all px-2.5 py-2'; // Outline stili
+      return 'text-primary ring-offset-0 ring-inset ring-1 ring-primary hover:bg-primary-100 bg-transparent'; // Outline stili
     case 'naked':
-      return null
+      return null; // Naked stili
     default:
-      return 'bg-primary text-white font-medium text-xs rounded transition-all px-2.5 py-2'
+      return 'bg-primary text-white'; // Varsayılan stil
   }
-});
+})();
 
-const colorClasses = computed(() => {
+const colorClasses = (() => {
   // Renk yoksa, boş bir string döndür
   if (!props.color || props.variant == "naked") return '';
 
@@ -44,16 +46,10 @@ const colorClasses = computed(() => {
   } else if (props.variant == "outline") {
 
     result = `ring-${props.color} hover:bg-${colorBase}-100`;
-    console.log(result);
-    
   }
 
   return result;
-});
-
-const combinedClasses = computed(() => {
-  return cn(variantClasses.value, colorClasses.value, props.class)
-})
+})();
 
 </script>
 
@@ -64,7 +60,7 @@ export default {
 </script>
 
 <template>
-  <component v-ripple :is="to ? 'router-link' : 'button'" v-bind="attrs" :to="to" :class="combinedClasses">
+  <component v-ripple :is="to ? 'router-link' : 'button'" v-bind="attrs" :to="to" :class="cn(defaultClasses, variantClasses, colorClasses, props.class)">
     <slot />
   </component>
 </template>

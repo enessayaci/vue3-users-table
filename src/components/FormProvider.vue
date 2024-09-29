@@ -1,9 +1,3 @@
-<template>
-  <form @submit.prevent="handleSubmit">
-    <slot />
-  </form>
-</template>
-
 <script setup lang="ts">
 import { ref, provide } from 'vue';
 
@@ -34,3 +28,9 @@ const handleSubmit = () => {
 // Provide register fonksiyonunu
 provide('register', register);
 </script>
+
+<template>
+  <form @submit.prevent="handleSubmit">
+    <slot />
+  </form>
+</template>

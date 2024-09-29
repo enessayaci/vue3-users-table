@@ -12,7 +12,7 @@ const formFields = ref({
 </script>
 
 <template>
-  <main id="#pageHome" class="grid grow">
+  <main id="pageHome" class="grid grow p-8">
     <div>
       <FormProvider id="create">
         <Input v-model="formFields.name" label="Metin" tooltip="Text alanı" :min="3" :max="10" required />

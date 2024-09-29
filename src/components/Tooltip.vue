@@ -80,7 +80,7 @@ const combinedTooltipClasses = tooltipTriangleClasses + " " + tooltipClasses
 </script>
 
 <template>
-  <div class="relative flex items-center">
+  <div id="componentTooltip" class="relative flex items-center">
     <Button variant="naked" @click="() => handleTooltipClick()" @blur="handleTooltipClick(true)"
       class="text-neutral-300">
       <IconInfo />
