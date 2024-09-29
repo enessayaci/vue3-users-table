@@ -63,7 +63,7 @@ onMounted(() => {
   }
 });
 
-const inputClasses = "px-2.5 py-1.5 leading-5 border-0 focus-visible:outline-0 ring-1 ring-neutral-300 focus:ring-black rounded placeholder-neutral-300";
+const inputClasses = "px-2.5 py-1.5 leading-5 border-0 focus-visible:outline-0 ring-1 ring-neutral-300 dark:ring-neutral-600 focus:ring-black dark:focus:ring-neutral-300 rounded placeholder-neutral-300 bg-transparent";
 const combinedInputClasses = computed(() => {
   return cn(inputClasses, props.inputClasses, { 'ring-red-500 focus:ring-red-500': error.value });
 });

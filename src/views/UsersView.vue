@@ -1,23 +1,15 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import Table from '../components/Table.vue';
+import { computed, ref } from 'vue';
+import Table from '@/components/Table.vue';
+import Breadcrumb from '@/components/Breadcrumb.vue';
 import Button from '@/components/ui/Button.vue';
+import Modal from '@/components/Modal.vue';
+import FormProvider from '@/components/FormProvider.vue';
+import Input from '@/components/ui/Input.vue';
 
-// Kullanıcı arayüzü tanımı
-interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  age: number;
-}
-
-interface IUserRow {
-  id: string;
-  name: string;
-  email: string;
-  age: number;
-}
+const isUpsertModalOpen = ref<boolean>(false)
+const actionButtonText = ref<string>('Create')
+const modalTitle = ref<string>('Create User')
 
 // Kullanıcı verileri
 const users: User[] = [
@@ -37,6 +29,13 @@ const users: User[] = [
   },
 ];
 
+const formFields = ref({
+  firstName: '',
+  lastName: '',
+  email: '',
+  age: 0
+})
+
 // Tablo başlıkları
 const heads = [
   { label: "Name", key: "name" },
@@ -46,7 +45,7 @@ const heads = [
 ];
 
 // Tablo verileri
-const data = computed<IUserRow[]>(() => {
+const tableData = computed<IUserRow[]>(() => {
   return users.map(user => ({
     id: user.id,
     name: `${user.firstName} ${user.lastName}`,
@@ -55,22 +54,48 @@ const data = computed<IUserRow[]>(() => {
   }));
 });
 
-// Eylem butonu için işlev
-const handleAction = (item: IUserRow) => {
+function handleAction (item: IUserRow) {
   console.log("Action for ID:", item); // ID'yi konsola yazdır
 };
+
+function handleSubmit() {
+  console.log();
+  
+}
 </script>
 
 <template>
-  <main id="#pageUsers" class="grow p-8">
-    <Table :heads="heads" :data="data">
-      <template v-slot:actions="{ item }">
-        <Button @click="handleAction(item as IUserRow)">Düzenle</Button> <!-- Dinamik içerik -->
-      </template>
-    </Table>
-  </main>
-</template>
+  <div id="#pageUsers" class="flex flex-col grow">
 
-<style>
-/* Stil ekleyebilirsiniz */
-</style>
+    <section class="flex p-8">
+      <Breadcrumb />
+      <Button class="ms-auto" @click="() => { isUpsertModalOpen = true }">Create</Button>
+    </section>
+
+    <main class="grow p-8">
+      <Table :heads="heads" :data="tableData">
+        <template v-slot:actions="{ item }">
+          <Button @click="handleAction(item as IUserRow)">Düzenle</Button> <!-- Dinamik içerik -->
+        </template>
+      </Table>
+    </main>
+
+    <Modal v-model="isUpsertModalOpen" :is-action-button="true" :actionButtonText="actionButtonText"
+      actionForm="upsertUser" :title="modalTitle" description="Description">
+
+      <FormProvider id="upsertUser" :onSubmit="handleSubmit" class="grid gap-y-7">
+
+        <Input v-model="formFields.firstName" label="First Name" tooltip="İsim Alanı, örn: Enes, Necmettin, Neco"
+          required />
+
+        <Input v-model="formFields.firstName" label="Last Name" tooltip="Soyisim Alanı, örn: Sayacı, Deligöz" required />
+
+        <Input type="email" v-model="formFields.firstName" label="Email" tooltip="Email Alanı, örn: sayacienes@gmail.com" required />
+        
+        <Input type="number" v-model="formFields.firstName" label="Age" tooltip="Yaş Alanı, örn: 18, 26, 32" :min="18" required />
+      
+      </FormProvider>
+      
+    </Modal>
+  </div>
+</template>

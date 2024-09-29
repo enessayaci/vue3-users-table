@@ -4,6 +4,10 @@ import { ref, provide } from 'vue';
 // Register fonksiyonu için tip tanımlaması
 export type RegisterFunction = (input: { validate: () => boolean; }) => void;
 
+const props = defineProps<{
+  onSubmit: () => void
+}>();
+
 const inputs = ref<{ validate: () => boolean }[]>([]); // Tüm inputları burada tutacağız
 
 // Register fonksiyonu
