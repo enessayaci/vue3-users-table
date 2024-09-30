@@ -4,6 +4,7 @@ import Button from './ui/Button.vue';
 import IconAsc from './icons/IconAsc.vue';
 import IconDesc from './icons/IconDesc.vue';
 import IconWarn from './icons/IconWarn.vue';
+import DataNotFound from './DataNotFound.vue';
 
 // Generic tip tanımı
 const props = defineProps<{
@@ -65,11 +66,8 @@ function handleHeadClick(field: string) {
       </tr>
     </tbody>
   </table>
-  <div v-if="data.length <= 0" class="flex flex-col items-center w-full gap-y-2 mt-12">
-    <span class="text-neutral w-12">
-      <IconWarn />
-    </span>
-    <p class="text-neutral">Veri bulunamadı!</p>
+  <div v-if="data.length <= 0">
+    <DataNotFound/>
   </div>
 </template>
 

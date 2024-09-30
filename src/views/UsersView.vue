@@ -5,6 +5,7 @@ import Breadcrumb from '@/components/Breadcrumb.vue';
 import Button from '@/components/ui/Button.vue';
 import Modal from '@/components/Modal.vue';
 import FormProvider from '@/components/FormProvider.vue';
+import DataNotFound from '@/components/DataNotFound.vue';
 import Input from '@/components/ui/Input.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/store/userStore';
@@ -26,6 +27,28 @@ const {showLoader, hideLoader} = useLoading()
 const isUpsertModalOpen = ref<boolean>(props.process ? true : false)
 const actionButtonText = ref<string>(props.process == ProcessType.Update ? 'Save' : 'Create')
 const modalTitle = ref(props.process == ProcessType.Update ? 'Edit User' : 'Create User')
+// Kullanıcı verileri
+const users = computed<User[]>(() => userStore.userList)
+const request = ref(new User())
+// Tablo başlıkları
+const heads = [
+  { label: "Name", key: "name" , sort:true },
+  { label: "Email", key: "email", sort: true },
+  { label: "Age", key: "age", sort: true },
+  { label: "Actions", key: "actions" },
+];
+// Tablo verileri
+const tableData = computed(() => {
+  return users.value.map((user: User) => ({
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    name: `${user.firstName} ${user.lastName}`,
+    email: user.email,
+    age: user.age,
+  }));
+});
+const getUserFailed = ref(false)
 
 onMounted(() => {
   if (props.process == ProcessType.Update && route.params.id) {
@@ -39,31 +62,6 @@ watch(() => props.process, (newProcess) => {
   isUpsertModalOpen.value = !!newProcess; // process varsa modalı aç, yoksa kapat
   actionButtonText.value = newProcess == ProcessType.Update ? 'Save' : 'Create'
   modalTitle.value = newProcess == ProcessType.Update ? 'Edit User' : 'Create User'
-});
-
-// Kullanıcı verileri
-const users = computed<User[]>(() => userStore.userList)
-
-const request = ref(new User())
-
-// Tablo başlıkları
-const heads = [
-  { label: "Name", key: "name" , sort:true },
-  { label: "Email", key: "email", sort: true },
-  { label: "Age", key: "age", sort: true },
-  { label: "Actions", key: "actions" },
-];
-
-// Tablo verileri
-const tableData = computed(() => {
-  return users.value.map((user: User) => ({
-    id: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    name: `${user.firstName} ${user.lastName}`,
-    email: user.email,
-    age: user.age,
-  }));
 });
 
 async function getUsers() {
@@ -85,8 +83,8 @@ async function getUserById(id: string) {
     const user: User = await apiService.getUserById(id)
     Object.assign(request.value, user)
   } catch (err) {
-    
-
+    console.log("Error, ", err);
+    getUserFailed.value = true
   } finally {
     hideLoader()
   }
@@ -99,7 +97,7 @@ async function addUser(data: User) {
     userStore.addUser(user)
     router.push({ name: 'users' })
   } catch (err) {
-    
+    console.log("Error, ", err);
   } finally {
     hideLoader()
   }
@@ -112,7 +110,7 @@ async function updateUser(data: User) {
     userStore.updateUser(user)
     router.push({name: 'users'})
   } catch (err) {
-    
+    console.log("Error, ", err);
   } finally {
     hideLoader()
   }
@@ -179,12 +177,12 @@ function handleModalClose() {
       </Table>
     </main>
 
-    <Modal v-model="isUpsertModalOpen" :is-action-button="true" :actionButtonText="actionButtonText"
+    <Modal v-model="isUpsertModalOpen" :isActionButton="!getUserFailed" :actionButtonText="actionButtonText"
       actionForm="upsertUser" :title="modalTitle" description="Description" @on-close="handleModalClose">
       <template #icon>
         <IconPen />
       </template>
-      <FormProvider id="upsertUser" @onSubmit="handleFormSubmit" class="grid gap-y-7">
+      <FormProvider v-if="!getUserFailed" id="upsertUser" @onSubmit="handleFormSubmit" class="grid gap-y-7">
 
         <Input v-model="request.firstName" label="First Name" tooltip="İsim Alanı, örn: Enes, Necmettin, Neco" />
 
@@ -196,6 +194,10 @@ function handleModalClose() {
         <Input type="number" v-model="request.age" label="Age" tooltip="Yaş Alanı, örn: 18, 26, 32" :min="18" />
 
       </FormProvider>
+
+      <div v-else class="flex flex-col">
+        <DataNotFound />
+      </div>
 
     </Modal>
   </div>
