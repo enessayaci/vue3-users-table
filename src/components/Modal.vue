@@ -12,6 +12,7 @@ const props = withDefaults(
     actionForm?: string;
     isActionButton?: boolean;
     closeOnAction?: boolean;
+    icon?: any
   }>(),
   {
     closeOnAction: false 
@@ -57,7 +58,7 @@ function handleAction() {
   <transition name="fade" @before-enter="beforeEnter" @enter="enter" @leave="leave">
     <div v-if="modelValue" id="componentModal"
       class="fixed flex justify-center items-center bottom-0 top-0 right-0 left-0 z-50 transition-opacity duration-500">
-      
+
       <div @click="handleClose" class="modal-overlay bg-black bg-opacity-50 absolute top-0 left-0 right-0 bottom-0">
       </div>
 
@@ -66,27 +67,30 @@ function handleAction() {
         <slot name="header">
           <div class="flex px-5 py-4">
             <div class="flex">
-              <span
-                class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center me-4"></span>
+              <span class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center me-4">
+                <slot name="icon"></slot>
+              </span>
               <div class="flex flex-col justify-between">
                 <h3 v-if="title" class="font-medium leading-4">{{ title }}</h3>
                 <p v-if="description" class="font-medium leading-4 mb-0 text-neutral-400 font-sm">{{ description }}
                 </p>
               </div>
             </div>
-            <Button tabindex="-1" @click="handleClose" variant="naked" class="ms-auto mb-auto text-neutral-400 -translate-y-1">
+            <Button tabindex="-1" @click="handleClose" variant="naked"
+              class="ms-auto mb-auto text-neutral-400 -translate-y-1">
               <IconClose />
             </Button>
           </div>
         </slot>
 
         <div class="px-5 py-4">
-          <slot/>
+          <slot />
         </div>
 
         <slot name="footer" v-if="$slots.footer || isActionButton">
           <div class="px-5 py-4 flex">
-            <Button @click="handleAction" :form="actionForm ?? undefined" class="ms-auto">{{ actionButtonText ?? 'Ok' }}</Button>
+            <Button @click="handleAction" :form="actionForm ?? undefined" class="ms-auto">{{ actionButtonText ?? 'Ok'
+              }}</Button>
           </div>
         </slot>
 

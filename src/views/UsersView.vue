@@ -13,6 +13,7 @@ import { User } from '@/types/requests/User';
 import { ProcessType } from '@/types/enums/ProcessType';
 import { useLoading } from '@/composables/useLoading';
 import Loading from '@/components/Loading.vue'
+import IconPen from '@/components/icons/IconPen.vue'
 
 const props = defineProps<{
   process?: ProcessType
@@ -180,19 +181,19 @@ function handleModalClose() {
 
     <Modal v-model="isUpsertModalOpen" :is-action-button="true" :actionButtonText="actionButtonText"
       actionForm="upsertUser" :title="modalTitle" description="Description" @on-close="handleModalClose">
-
+      <template #icon>
+        <IconPen />
+      </template>
       <FormProvider id="upsertUser" @onSubmit="handleFormSubmit" class="grid gap-y-7">
 
-        <Input v-model="request.firstName" label="First Name" tooltip="İsim Alanı, örn: Enes, Necmettin, Neco"
-          required />
+        <Input v-model="request.firstName" label="First Name" tooltip="İsim Alanı, örn: Enes, Necmettin, Neco" />
 
-        <Input v-model="request.lastName" label="Last Name" tooltip="Soyisim Alanı, örn: Sayacı, Deligöz" required />
+        <Input v-model="request.lastName" label="Last Name" tooltip="Soyisim Alanı, örn: Sayacı, Deligöz" />
 
         <Input type="email" v-model="request.email" label="Email" tooltip="Email Alanı, örn: sayacienes@gmail.com"
           required />
 
-        <Input type="number" v-model="request.age" label="Age" tooltip="Yaş Alanı, örn: 18, 26, 32" :min="18"
-          required />
+        <Input type="number" v-model="request.age" label="Age" tooltip="Yaş Alanı, örn: 18, 26, 32" :min="18" />
 
       </FormProvider>
 

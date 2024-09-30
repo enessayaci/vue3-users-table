@@ -6,7 +6,7 @@ const { isLoading } = useLoading(); // Composable'ı doğrudan kullan
 </script>
 
 <template>
-  <div v-if="isLoading" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+  <div v-if="isLoading" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-[1000]">
     <div class="animate-spin w-16 h-16 text-white ">
       <IconSpinner/>
     </div>

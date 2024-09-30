@@ -13,7 +13,7 @@ const props = defineProps<{
 // Dışarıdan gelen tüm attribute'ları almak için useAttrs kullanıyoruz
 const attrs = useAttrs();
 
-const defaultClasses = props.variant != 'naked' ? 'font-medium text-xs rounded transition-all px-2.5 py-2' : null
+const defaultClasses = props.variant != 'naked' ? 'font-medium text-xs dark:text-neutral rounded transition-all px-2.5 py-2' : null
 
 // Buton stillerini tanımlama
 const variantClasses = (() => {
