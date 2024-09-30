@@ -28,8 +28,6 @@ function generateSafelist() {
       safelist.push(`hover:ring-${color}-${shade}`); // Hover sınıflarını ekle
     });
   });
-
-  console.log(safelist);
   
   return safelist;
 }
