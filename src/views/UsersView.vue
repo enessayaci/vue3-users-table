@@ -71,7 +71,7 @@ async function getUsers() {
     const users: User[] = await apiService.getUsers()
     userStore.setUsers(users)
   } catch (err) {
-    console.log("Bi sıkıntı var beybi");
+    
     
   } finally {
     hideLoader()
@@ -84,7 +84,7 @@ async function getUserById(id: string) {
     const user: User = await apiService.getUserById(id)
     Object.assign(request.value, user)
   } catch (err) {
-    console.log("Bi sıkıntı var beybi");
+    
 
   } finally {
     hideLoader()
@@ -98,7 +98,7 @@ async function addUser(data: User) {
     userStore.addUser(user)
     router.push({ name: 'users' })
   } catch (err) {
-    console.log("Bi sıkıntı var beybi");
+    
   } finally {
     hideLoader()
   }
@@ -111,7 +111,7 @@ async function updateUser(data: User) {
     userStore.updateUser(user)
     router.push({name: 'users'})
   } catch (err) {
-    console.log("Bi sıkıntı var beybi");
+    
   } finally {
     hideLoader()
   }
@@ -124,7 +124,7 @@ async function deleteUser(id: string) {
     userStore.deleteUser(user.id)
 
   } catch (err) {
-    console.log("Bi sıkıntı var beybi");
+    
   } finally {
     hideLoader()
   }
