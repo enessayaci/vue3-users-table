@@ -4,9 +4,7 @@ import { ref, provide } from 'vue';
 // Register fonksiyonu için tip tanımlaması
 export type RegisterFunction = (input: { validate: () => boolean; }) => void;
 
-const props = defineProps<{
-  onSubmit: () => void
-}>();
+const emit = defineEmits(['onSubmit'])
 
 const inputs = ref<{ validate: () => boolean }[]>([]); // Tüm inputları burada tutacağız
 
@@ -24,8 +22,10 @@ const validate = () => {
 const handleSubmit = () => {
   if (validate()) {
     console.log("Form gönderiliyor!");
+    emit('onSubmit', true)
   } else {
     console.log("Formda hata var, gönderilmiyor!");
+    emit('onSubmit', false)
   }
 };
 

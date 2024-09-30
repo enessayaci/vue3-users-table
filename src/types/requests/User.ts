@@ -1,7 +1,8 @@
-class User {
-  id: string | null = null;
-  firstName: string | null = null;
-  lastName: string | null = null;
-  email: string | null = null;
-  age: number | null = null;
+export class User {
+  id: string = '';
+  firstName: string = '';
+  lastName: string = '';
+  email: string = '';
+  age: number = 0;
+  createdAt?: Date = new Date()
 }

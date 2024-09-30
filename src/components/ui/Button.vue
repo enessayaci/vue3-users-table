@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils';
 
 // Prop tiplerini tanımlama
 const props = defineProps<{
-  to?: string | null; // Router link için opsiyonel to prop'u
+  to?: string | { name: string; params?: Record<string, any>; };
   variant?: 'default' | 'outline' | 'naked'; // Varyant için belirli değerler,
   color?: any;
   class?: string;

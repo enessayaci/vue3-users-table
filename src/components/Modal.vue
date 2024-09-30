@@ -2,17 +2,22 @@
 import IconClose from './icons/IconClose.vue';
 import Button from '@/components/ui/Button.vue';
 
-const props = defineProps<{
-  modelValue: Boolean,
-  class?: String,
-  title?: String,
-  description?: String,
-  actionButtonText?: String,
-  actionForm?: String,
-  isActionButton?: Boolean,
-  onAction?: ()=> void
-}>();
-const emit = defineEmits(["update:modelValue"]);
+const props = withDefaults(
+  defineProps<{
+    modelValue: boolean;
+    class?: string;
+    title?: string;
+    description?: string;
+    actionButtonText?: string;
+    actionForm?: string;
+    isActionButton?: boolean;
+    closeOnAction?: boolean;
+  }>(),
+  {
+    closeOnAction: false 
+  }
+);
+const emit = defineEmits(['update:modelValue', 'onAction', 'onClose' ]);
 
 function beforeEnter(el: Element) {
   (el as HTMLElement).style.opacity = '0';
@@ -35,17 +40,17 @@ function leave(el: Element, done: () => void) {
 }
 
 function handleClose() {
-  emit("update:modelValue", false);
+  emit("update:modelValue", false)
+  emit('onClose')
 }
 
 function handleAction() {
-  if (props.onAction) {
-    props.onAction()
-  } else {
-    !props.actionForm && emit("update:modelValue", false);
+  emit('onAction')
+  if (!props.actionForm || props.closeOnAction) {
+    emit("update:modelValue", false)
+    emit('onClose')
   }
 }
-
 </script>
 
 <template>
@@ -69,7 +74,7 @@ function handleAction() {
                 </p>
               </div>
             </div>
-            <Button @click="handleClose" variant="naked" class="ms-auto mb-auto text-neutral-400 -translate-y-1">
+            <Button tabindex="-1" @click="handleClose" variant="naked" class="ms-auto mb-auto text-neutral-400 -translate-y-1">
               <IconClose />
             </Button>
           </div>

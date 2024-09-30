@@ -1,11 +1,42 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { computed, defineProps, ref } from 'vue';
+import Button from './ui/Button.vue';
+import IconAsc from './icons/IconAsc.vue';
+import IconDesc from './icons/IconDesc.vue';
 
 // Generic tip tanımı
 const props = defineProps<{
-  heads: { label: string; key: string }[];
+  heads: { label: string; key: string; sort?: boolean; }[];
   data: Array<Record<string, any>>; // Herhangi bir veri yapısını temsil eden generic tip
+  initialSortField?: string,
+  initialSortOrder?: 'asc' | 'desc' 
 }>();
+
+const sortField = ref<string>(props.initialSortField ?? '')
+const order = ref<'asc' | 'desc'>(props.initialSortOrder ?? 'asc')
+
+const sortedData = computed(() => {
+  return sort(props.data, sortField.value, order.value)
+})
+
+function sort(data: any[], field: string, order: 'asc' | 'desc' = 'asc') {
+  return [...data].sort((a, b) => {
+    const aField = a[field] !== undefined ? a[field] : "";
+    const bField = b[field] !== undefined ? b[field] : "";
+
+    if (order === 'asc') {
+      return aField > bField ? 1 : -1;
+    } else {
+      return aField < bField ? 1 : -1;
+    }
+  });
+}
+
+function handleHeadClick(field: string) {
+  sortField.value = field
+  order.value = order.value == 'desc' ? 'asc' : 'desc'
+}
+
 </script>
 
 <template>
@@ -13,12 +44,20 @@ const props = defineProps<{
     <thead>
       <tr>
         <th v-for="(head, index) in heads" :key="index">
-          {{ head.label }}
+          <Button tabindex="-1" v-if="head.sort" variant="naked" class="flex" @click="handleHeadClick(head.key)">
+            {{ head.label }}
+            <span v-show="sortField == head.key" class="ms-1 w-4">
+              <IconAsc v-show="order == 'asc'" />
+              <IconDesc v-show="order == 'desc'" />
+            </span>
+          </Button>
+          <span v-else>{{ head.label }}</span>
+
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item, rowIndex) in data" :key="rowIndex">
+      <tr v-for="(item, rowIndex) in sortedData" :key="rowIndex">
         <td v-for="(head, colIndex) in heads" :key="colIndex">
           <slot :name="head.key" :item="item">{{ item[head.key] }}</slot> <!-- Her başlık için ayrı slot -->
         </td>

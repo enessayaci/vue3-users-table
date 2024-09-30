@@ -77,11 +77,12 @@ const tooltipInnerTriangleClasses = "after:content-[''] after:absolute after:bor
 const tooltipTriangleClasses = tooltipOuterTriangleClasses + " " + tooltipInnerTriangleClasses
 const tooltipClasses = "text-neutral absolute top-1/2 left-full m-1 bg-white border border-neutral-100 -translate-y-2/3 shadow w-fit min-w-28 rounded-md text-xs p-1 transition-all duration-500 opacity-0 invisible"
 const combinedTooltipClasses = tooltipTriangleClasses + " " + tooltipClasses
+
 </script>
 
 <template>
   <div id="componentTooltip" class="relative flex items-center">
-    <Button variant="naked" @click="() => handleTooltipClick()" @blur="handleTooltipClick(true)"
+    <Button tabindex="-1" variant="naked" @click="() => handleTooltipClick()" @blur="handleTooltipClick(true)"
       class="text-neutral-300 dark:text-neutral-600">
       <IconInfo />
     </Button>
