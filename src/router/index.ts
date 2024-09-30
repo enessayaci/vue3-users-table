@@ -15,7 +15,7 @@ const router = createRouter({
       component: UsersView
     },
     {
-      path: '/users/update:id',
+      path: '/users/update/:id',
       name: 'usersUpdate',
       component: UsersView,
       props: { process: ProcessType.Update }
