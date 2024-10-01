@@ -42,7 +42,7 @@ function handleHeadClick(field: string) {
 </script>
 
 <template>
-  <div class="w-full overflow-scroll rounded-t-md">
+  <div class="w-full overflow-auto rounded-t-md">
     <table class="w-full">
       <thead>
         <tr>
@@ -77,10 +77,14 @@ function handleHeadClick(field: string) {
 <style scoped>
 th,
 td {
-  @apply px-4 py-3 text-start last:text-end text-xs font-medium;
+  @apply px-4 text-start last:text-end text-xs font-medium;
 }
 
 th {
-  @apply bg-slate-100 first:rounded-tl-md last:rounded-tr-md text-gray-500;
+  @apply py-3 leading-4 bg-slate-100 first:rounded-tl-md last:rounded-tr-md text-gray-500;
+}
+
+td{
+  @apply leading-3 py-1;
 }
 </style>

@@ -17,6 +17,7 @@ import FormProvider from '@/components/FormProvider.vue';
 import DataNotFound from '@/components/DataNotFound.vue';
 import Input from '@/components/ui/Input.vue';
 import ThemeToggler from '@/components/ThemeToggler.vue';
+import IconWarn from '@/components/icons/IconWarn.vue';
 
 const props = defineProps<{
   process?: ProcessType
@@ -27,6 +28,7 @@ const route = useRoute()
 const router = useRouter()
 const {showLoader, hideLoader} = useLoading()
 const isUpsertModalOpen = ref<boolean>(props.process ? true : false)
+const isDeleteModalOpen = ref<boolean>(false)
 const actionButtonText = ref<string>(props.process == ProcessType.Update ? 'Save' : 'Create')
 const modalTitle = ref(props.process == ProcessType.Update ? 'Edit User' : 'Create User')
 // Kullanıcı verileri
@@ -128,12 +130,19 @@ async function deleteUser(id: string) {
     
   } finally {
     hideLoader()
+    isDeleteModalOpen.value = false
   }
 }
 
-function handleDeleteClick (item: User) {
-  deleteUser(item.id)
+function handleDeleteClick(item: User) {
+  Object.assign(request.value, item)
+  isDeleteModalOpen.value = true
 };
+
+function handleDeleteConfirm() {
+  deleteUser(request.value.id)
+}
+
 
 function handleCreateClick() {
   request.value = new User()
@@ -211,6 +220,19 @@ function handleModalClose() {
         <DataNotFound />
       </div>
 
+    </Modal>
+
+    <Modal v-model="isDeleteModalOpen" @onAction="handleDeleteConfirm" isActionButton actionButtonText="Onayla"
+      title="Warning!" description="Description" @on-close="handleModalClose">
+      <template #icon>
+        <span class=" w-6">
+          <IconWarn />
+        </span>
+      </template>
+      <div>
+        <h2 class="mb-4">Are you sure you want to delete the user?</h2>
+        <span class="italic">{{ request.firstName }} {{ request.lastName }}</span>
+      </div>
     </Modal>
   </div>
 </template>
