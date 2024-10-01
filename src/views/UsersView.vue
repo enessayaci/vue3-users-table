@@ -134,6 +134,7 @@ function handleDeleteClick (item: User) {
 };
 
 function handleCreateClick() {
+  request.value = new User()
   router.push({ name: 'usersCreate' })
 };
 
@@ -153,7 +154,7 @@ function handleFormSubmit(isValid: boolean) {
 }
 
 function handleModalClose() {
-  router.push({ name: 'users'})
+  router.push({ name: 'users' })
 }
 
 </script>
@@ -184,9 +185,9 @@ function handleModalClose() {
       </template>
       <FormProvider v-if="!getUserFailed" id="upsertUser" @onSubmit="handleFormSubmit" class="grid gap-y-7">
 
-        <Input v-model="request.firstName" label="First Name" tooltip="İsim Alanı, örn: Enes, Necmettin, Neco" />
+        <Input v-model="request.firstName" label="First Name" tooltip="İsim Alanı, örn: Enes, Necmettin, Neco" required />
 
-        <Input v-model="request.lastName" label="Last Name" tooltip="Soyisim Alanı, örn: Sayacı, Deligöz" />
+        <Input v-model="request.lastName" label="Last Name" tooltip="Soyisim Alanı, örn: Sayacı, Deligöz" required />
 
         <Input type="email" v-model="request.email" label="Email" tooltip="Email Alanı, örn: sayacienes@gmail.com"
           required />

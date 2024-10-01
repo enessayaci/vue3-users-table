@@ -15,7 +15,17 @@ const register: RegisterFunction = (input) => {
 
 // Validate fonksiyonu
 const validate = () => {
-  return inputs.value.every(input => input.validate());
+
+  let isValid = true;
+  
+  inputs.value.forEach(input => {
+    const result = input.validate();
+    if (result !== true) {
+      isValid = false;
+    }
+  });
+
+  return isValid; 
 };
 
 // Submit işlemi

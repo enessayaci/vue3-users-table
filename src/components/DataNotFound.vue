@@ -7,6 +7,6 @@ import IconWarn from '@/components/icons/IconWarn.vue'
     <span class="text-neutral w-12">
       <IconWarn />
     </span>
-    <p class="text-neutral">Veri bulunamadı!</p>
+    <p class="text-neutral">Data not found!</p>
   </div>
 </template>
