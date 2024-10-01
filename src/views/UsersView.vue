@@ -166,6 +166,9 @@ function handleFormSubmit(isValid: boolean) {
 
 function handleModalClose() {
   router.push({ name: 'users' })
+  if (getUserFailed.value) {
+    getUserFailed.value = false
+  }
 }
 
 </script>
@@ -222,7 +225,7 @@ function handleModalClose() {
 
     </Modal>
 
-    <Modal v-model="isDeleteModalOpen" @onAction="handleDeleteConfirm" isActionButton actionButtonText="Onayla"
+    <Modal v-model="isDeleteModalOpen" @onAction="handleDeleteConfirm" isActionButton actionButtonText="Confirm"
       title="Warning!" description="Description" @on-close="handleModalClose">
       <template #icon>
         <span class=" w-6">
