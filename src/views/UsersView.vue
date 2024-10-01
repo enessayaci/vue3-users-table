@@ -162,7 +162,7 @@ function handleModalClose() {
 </script>
 
 <template>
-  <div id="#pageUsers" class="flex flex-col grow">
+  <div id="#pageUsers" class="flex flex-col grow overflow-hidden">
     <Loading />
     <section class="flex p-8">
       <Breadcrumb />

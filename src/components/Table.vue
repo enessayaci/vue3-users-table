@@ -42,33 +42,36 @@ function handleHeadClick(field: string) {
 </script>
 
 <template>
-  <table class="w-full">
-    <thead>
-      <tr>
-        <th v-for="(head, index) in heads" :key="index">
-          <Button tabindex="-1" v-if="head.sort" variant="naked" class="flex" @click="handleHeadClick(head.key)">
-            {{ head.label }}
-            <span v-show="sortField == head.key" class="ms-1 w-4">
-              <IconAsc v-show="order == 'asc'" />
-              <IconDesc v-show="order == 'desc'" />
-            </span>
-          </Button>
-          <span v-else>{{ head.label }}</span>
+  <div class="w-full overflow-scroll rounded-t-md">
+    <table class="w-full">
+      <thead>
+        <tr>
+          <th v-for="(head, index) in heads" :key="index">
+            <Button tabindex="-1" v-if="head.sort" variant="naked" class="flex" @click="handleHeadClick(head.key)">
+              {{ head.label }}
+              <span v-show="sortField == head.key" class="ms-1 w-4">
+                <IconAsc v-show="order == 'asc'" />
+                <IconDesc v-show="order == 'desc'" />
+              </span>
+            </Button>
+            <span v-else>{{ head.label }}</span>
 
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(item, rowIndex) in sortedData" :key="rowIndex">
-        <td v-for="(head, colIndex) in heads" :key="colIndex">
-          <slot :name="head.key" :item="item">{{ item[head.key] }}</slot> <!-- Her başlık için ayrı slot -->
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div v-if="data.length <= 0">
-    <DataNotFound/>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, rowIndex) in sortedData" :key="rowIndex">
+          <td v-for="(head, colIndex) in heads" :key="colIndex">
+            <slot :name="head.key" :item="item">{{ item[head.key] }}</slot> <!-- Her başlık için ayrı slot -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div v-if="data.length <= 0">
+      <DataNotFound />
+    </div>
   </div>
+
 </template>
 
 <style scoped>
