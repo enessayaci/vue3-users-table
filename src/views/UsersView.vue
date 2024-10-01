@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
-import Table from '@/components/Table.vue';
-import Breadcrumb from '@/components/Breadcrumb.vue';
-import Button from '@/components/ui/Button.vue';
-import Modal from '@/components/Modal.vue';
-import FormProvider from '@/components/FormProvider.vue';
-import DataNotFound from '@/components/DataNotFound.vue';
-import Input from '@/components/ui/Input.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/store/userStore';
 import apiService from '@/services/aipService';
 import { User } from '@/types/requests/User';
 import { ProcessType } from '@/types/enums/ProcessType';
 import { useLoading } from '@/composables/useLoading';
+
+import Table from '@/components/Table.vue';
+import Breadcrumb from '@/components/Breadcrumb.vue';
+import Button from '@/components/ui/Button.vue';
+import Modal from '@/components/Modal.vue';
 import Loading from '@/components/Loading.vue'
 import IconPen from '@/components/icons/IconPen.vue'
+import FormProvider from '@/components/FormProvider.vue';
+import DataNotFound from '@/components/DataNotFound.vue';
+import Input from '@/components/ui/Input.vue';
+import ThemeToggler from '@/components/ThemeToggler.vue';
 
 const props = defineProps<{
   process?: ProcessType
@@ -164,7 +166,10 @@ function handleModalClose() {
     <Loading />
     <section class="flex p-8">
       <Breadcrumb />
-      <Button class="ms-auto" @click="handleCreateClick">Create</Button>
+      <div class="flex gap-x-2 ms-auto items-center">
+        <ThemeToggler />
+        <Button @click="handleCreateClick">Create</Button>
+      </div>
     </section>
 
     <main class="grow p-8">
@@ -191,10 +196,9 @@ function handleModalClose() {
       </template>
       <FormProvider v-if="!getUserFailed" id="upsertUser" @onSubmit="handleFormSubmit" class="grid gap-y-7">
 
-        <Input v-model="request.firstName" label="First Name" tooltip="İsim Alanı, örn: Enes, Necmettin, Neco"
-          required />
+        <Input v-model="request.firstName" label="First Name" tooltip="İsim Alanı, örn: Enes" required />
 
-        <Input v-model="request.lastName" label="Last Name" tooltip="Soyisim Alanı, örn: Sayacı, Deligöz" required />
+        <Input v-model="request.lastName" label="Last Name" tooltip="Soyisim Alanı, örn: Sayacı" required />
 
         <Input type="email" v-model="request.email" label="Email" tooltip="Email Alanı, örn: sayacienes@gmail.com"
           required />

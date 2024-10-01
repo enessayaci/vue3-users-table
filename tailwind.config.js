@@ -30,11 +30,11 @@ function generateSafelist() {
 }
 
 module.exports = {
+  darkMode: "selector",
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   safelist: generateSafelist(),
   theme: {
-    extend: {
-    },
+    extend: {},
   },
   plugins: [],
 };

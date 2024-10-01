@@ -2,17 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
-  body{
-    @apply bg-gray-900 text-slate-300;
-  }
+body {
+  @apply bg-white text-[#4F5659] dark:bg-slate-900 dark:text-slate-500;
 }
-@media (prefers-color-scheme: light) {
-  body {
-    @apply bg-white text-[#4F5659];
-  }
-}
-
 
 @keyframes ripple-animation {
   to {
