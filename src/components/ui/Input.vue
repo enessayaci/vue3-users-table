@@ -73,9 +73,9 @@ onMounted(() => {
   }
 });
 
-const inputClasses = "px-2.5 py-1.5 leading-5 border-0 focus-visible:outline-0 ring-1 ring-neutral-300 dark:ring-neutral-600 focus:ring-black dark:focus:ring-neutral-300 rounded placeholder-neutral-300 bg-transparent";
+const inputClasses = "px-2.5 py-1.5 leading-5 border-0 focus-visible:outline-0 ring-1 ring-slate-300 dark:ring-slate-600 focus:ring-black dark:focus:ring-slate-300 rounded placeholder-slate-300 bg-transparent";
 const combinedInputClasses = computed(() => {
-  return cn(inputClasses, props.inputClasses, { 'ring-red-500 focus:ring-rose-500': error.value && isTouched.value});
+  return cn(inputClasses, props.inputClasses, { 'ring-rose-500 focus:ring-rose-500': error.value && isTouched.value});
 });
 
 const wrapperClasses = "grid gap-y-1";

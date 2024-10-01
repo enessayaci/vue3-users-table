@@ -62,22 +62,22 @@ function handleAction() {
       <div @click="handleClose" class="modal-overlay bg-black bg-opacity-50 absolute top-0 left-0 right-0 bottom-0">
       </div>
 
-      <div class="modal-dialog shadow bg-white dark:bg-neutral-900 absolute min-w-96 rounded-lg z-10">
+      <div class="modal-dialog shadow bg-white dark:bg-slate-900 absolute min-w-96 rounded-lg z-10">
 
         <slot name="header">
           <div class="flex px-5 py-4">
             <div class="flex">
-              <span class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center me-4">
+              <span class="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center me-4">
                 <slot name="icon"></slot>
               </span>
               <div class="flex flex-col justify-between">
-                <h3 v-if="title" class="font-medium leading-4">{{ title }}</h3>
-                <p v-if="description" class="font-medium leading-4 mb-0 text-neutral-400 font-sm">{{ description }}
+                <h3 v-if="title" class="font-medium leading-4 text-slate-700">{{ title }}</h3>
+                <p v-if="description" class="font-medium leading-4 mb-0 text-slate-400 font-sm">{{ description }}
                 </p>
               </div>
             </div>
             <Button tabindex="-1" @click="handleClose" variant="naked"
-              class="ms-auto mb-auto text-neutral-400 -translate-y-1">
+              class="ms-auto mb-auto text-slate-400 -translate-y-1">
               <IconClose />
             </Button>
           </div>

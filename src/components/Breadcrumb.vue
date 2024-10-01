@@ -3,26 +3,26 @@
     <ol class="flex space-x-2">
       <li class="flex items-center">
         <Button to="/" variant="naked" tabindex="-1"
-          class="flex items-center dark:text-neutral-300 hover:text-blue-400 hover:bg-transparent">
+          class="flex items-center dark:text-slate-300 hover:text-blue-400 hover:bg-transparent">
           <IconHome />
         </Button>
-        <span class="ml-2 text-xs font-medium text-neutral-300">/</span>
+        <span class="ml-2 text-xs font-medium text-slate-300">/</span>
       </li>
       <li v-for="(item, index) in breadcrumbs" :key="index" class="flex items-center">
         <template v-if="index < breadcrumbs.length - 1">
           <template v-if="isRouteDefined(item.link)">
-            <router-link :to="item.link" class="text-sm hover:text-blue-400 hover:bg-transparent text-neutral">
+            <router-link :to="item.link" class="text-sm hover:text-blue-400 hover:bg-transparent text-gray-500">
               {{ item.text }}
             </router-link>
           </template>
           <template v-else>
-            <span class="font-medium text-sm text-neutral">{{ item.text }}</span>
+            <span class="font-medium text-sm text-gray-500">{{ item.text }}</span>
           </template>
         </template>
         <template v-else>
           <span class="font-medium text-sm">{{ item.text }}</span>
         </template>
-        <span v-if="index < breadcrumbs.length - 1" class="ml-2 text-xs font-medium text-neutral-300">/</span>
+        <span v-if="index < breadcrumbs.length - 1" class="ml-2 text-xs font-medium text-slate-300">/</span>
       </li>
     </ol>
   </nav>

@@ -78,10 +78,6 @@ td {
 }
 
 th {
-  @apply bg-neutral-100 first:rounded-tl-md last:rounded-tr-md text-neutral;
-}
-
-tr {
-  @apply text-neutral-700 dark:text-neutral-400;
+  @apply bg-slate-100 first:rounded-tl-md last:rounded-tr-md text-gray-500;
 }
 </style>

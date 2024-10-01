@@ -169,10 +169,16 @@ function handleModalClose() {
 
     <main class="grow p-8">
       <Table :heads="heads" :data="tableData" initial-sort-field="name">
+        <template v-slot:email="{ item }">
+          <div class="flex items-center">
+            <span class="bg-rose-500 rounded-md w-2.5 h-1.5 flex me-2.5"></span>
+            {{ item.email }}
+          </div>
+        </template>
         <template v-slot:actions="{ item }">
           <div class="flex gap-x-1 justify-end">
-            <Button variant="outline" color="neutral-300" @click="handleEditClick(item as User)">Edit</Button>
-            <Button variant="outline" color="neutral-300" @click="handleDeleteClick(item as User)">Delete</Button>
+            <Button variant="outline" color="slate-300" @click="handleEditClick(item as User)">Edit</Button>
+            <Button variant="outline" color="slate-300" @click="handleDeleteClick(item as User)">Delete</Button>
           </div>
         </template>
       </Table>
@@ -185,7 +191,8 @@ function handleModalClose() {
       </template>
       <FormProvider v-if="!getUserFailed" id="upsertUser" @onSubmit="handleFormSubmit" class="grid gap-y-7">
 
-        <Input v-model="request.firstName" label="First Name" tooltip="İsim Alanı, örn: Enes, Necmettin, Neco" required />
+        <Input v-model="request.firstName" label="First Name" tooltip="İsim Alanı, örn: Enes, Necmettin, Neco"
+          required />
 
         <Input v-model="request.lastName" label="Last Name" tooltip="Soyisim Alanı, örn: Sayacı, Deligöz" required />
 

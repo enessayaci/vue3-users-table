@@ -13,17 +13,17 @@ const props = defineProps<{
 // Dışarıdan gelen tüm attribute'ları almak için useAttrs kullanıyoruz
 const attrs = useAttrs();
 
-const defaultClasses = props.variant != 'naked' ? 'font-medium text-xs dark:text-neutral rounded transition-all px-2.5 py-2' : null
+const defaultClasses = props.variant != 'naked' ? 'font-medium text-xs dark:text-gray-500 rounded transition-all px-2.5 py-2' : null
 
 // Buton stillerini tanımlama
 const variantClasses = (() => {
   switch (props.variant) {
     case 'outline':
-      return 'text-primary ring-offset-0 ring-inset ring-1 ring-primary hover:bg-primary-100 bg-transparent'; // Outline stili
+      return 'text-slate-800 ring-offset-0 ring-inset ring-1 ring-slate-800 hover:bg-slate-100 bg-transparent'; // Outline stili
     case 'naked':
       return null; // Naked stili
     default:
-      return 'bg-primary text-white'; // Varsayılan stil
+      return 'bg-slate-800 text-white'; // Varsayılan stil
   }
 })();
 

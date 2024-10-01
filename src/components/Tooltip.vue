@@ -72,10 +72,10 @@ function handleTooltipClick(forceClose = false) {
 
 }
 
-const tooltipOuterTriangleClasses = "before:content-[''] before:absolute before:border-b-[6px] before:border-r-[5px] before:border-l-[5px] before:border-l-transparent before:border-r-transparent before:border-b-neutral-300 before:-rotate-90 before:top-1/2 before:right-full before:-mr-0.5"
+const tooltipOuterTriangleClasses = "before:content-[''] before:absolute before:border-b-[6px] before:border-r-[5px] before:border-l-[5px] before:border-l-transparent before:border-r-transparent before:border-b-slate-300 before:-rotate-90 before:top-1/2 before:right-full before:-mr-0.5"
 const tooltipInnerTriangleClasses = "after:content-[''] after:absolute after:border-b-[4px] after:border-r-[4px] after:border-l-[4px] after:border-l-transparent after:border-r-transparent after:border-b-white after:-rotate-90 after:top-1/2 after:translate-y-[0.5px] after:right-full after:-mr-0.5"
 const tooltipTriangleClasses = tooltipOuterTriangleClasses + " " + tooltipInnerTriangleClasses
-const tooltipClasses = "text-neutral absolute top-1/2 left-full m-1 bg-white border border-neutral-100 -translate-y-2/3 shadow w-fit min-w-28 rounded-md text-xs p-1 transition-all duration-300 opacity-0 invisible"
+const tooltipClasses = "text-gray-500 absolute top-1/2 left-full m-1 bg-white border border-slate-100 -translate-y-2/3 shadow w-fit min-w-28 rounded-md text-xs p-1 transition-all duration-300 opacity-0 invisible"
 const combinedTooltipClasses = tooltipTriangleClasses + " " + tooltipClasses
 
 </script>
@@ -83,7 +83,7 @@ const combinedTooltipClasses = tooltipTriangleClasses + " " + tooltipClasses
 <template>
   <div id="componentTooltip" class="relative flex items-center">
     <Button type="button" tabindex="-1" variant="naked" @click="() => handleTooltipClick()" @blur="handleTooltipClick(true)"
-      class="text-neutral-300 dark:text-neutral-600">
+      class="text-slate-300 dark:text-slate-500">
       <IconInfo />
     </Button>
     <div ref="tooltipRef" :class="combinedTooltipClasses">
