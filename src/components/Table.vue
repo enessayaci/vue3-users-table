@@ -47,13 +47,18 @@ function handleHeadClick(field: string) {
       <thead>
         <tr>
           <th v-for="(head, index) in heads" :key="index">
-            <Button tabindex="-1" v-if="head.sort" variant="naked" class="flex" @click="handleHeadClick(head.key)">
-              {{ head.label }}
-              <span v-show="sortField == head.key" class="ms-1 w-4">
-                <IconAsc v-show="order == 'asc'" />
-                <IconDesc v-show="order == 'desc'" />
-              </span>
-            </Button>
+            <div v-if="head.sort" class="relative flex items-center float-left">
+              <Button tabindex="-1" variant="naked" class="flex relative" @click="handleHeadClick(head.key)">
+                {{ head.label }}
+              </Button>
+
+              <div class="ms-1 w-4 h-4 absolute top-0 left-full">
+                <span v-show="sortField == head.key" class="w-4">
+                  <IconAsc v-show="order == 'asc'" />
+                  <IconDesc v-show="order == 'desc'" />
+                </span>
+              </div>
+            </div>
             <span v-else>{{ head.label }}</span>
 
           </th>
