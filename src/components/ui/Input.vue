@@ -45,7 +45,7 @@ const error = computed(() => {
     required: required ? (value.value.toString().length > 0 ? true : `This field is required`) : true,
     min: (type == 'text' && min) ? (value.value.toString().length >= min ? true : `Must be min ${min} character`) : true,
     max: (type == 'text' && max) ? (value.value.toString().length <= max ? true : `Must be max ${max} character`) : true,
-    minNumber: (type == 'number' && min) ? (value.value as number >= min ? true : `Must ve min ${min}`) : true,
+    minNumber: (type == 'number' && min) ? (value.value as number >= min ? true : `Must be min ${min}`) : true,
     maxNumber: (type == 'number' && max) ? (value.value as number <= max ? true : `Must be max ${max}`) : true,
     email: (type == 'email' && required) ? emailRegex.test(value.value as string) ? true : 'Enter a valid e-mail' : true
   };
